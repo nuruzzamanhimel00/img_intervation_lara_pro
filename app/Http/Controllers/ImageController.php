@@ -41,8 +41,48 @@ class ImageController extends Controller
             $this->store_image($name, $request->image_type);
 
         }
+        else if($request->image_type == Images::BRIGHTNESS_IMAGE){
+           // create new Intervention Image
+            $this->brightness_image($request, $path, $name);
+            $this->store_image($name, $request->image_type);
+        }
+        else if($request->image_type == Images::CIRCLE_IMAGE){
+
+            return "https://www.imnobby.com/2022/06/02/php-crop-image-from-square-to-circle-aka-set-image-border-radius/";
+            $img = Image::make($request->image);
+            $image_width = 300;
+
+            // Apply a smart crop
+            $img->fit($image_width);
+
+            // create empty canvas with transparent background
+            $canvas = Image::canvas($image_width, $image_width);
+
+            // draw a black circle on it
+            $canvas->circle($image_width, $image_width/2, $image_width/2, function ($draw) {
+                $draw->background('#000000');
+            });
+            $img->circle($image_width, $image_width/2, $image_width/2, function ($draw) {
+                $draw->background('#000000');
+            });
+
+            // // Mask your image with the shape
+            // $img->mask($canvas->encode('png', 75), true); // 75 is the image compression ratio
+
+            Storage::disk('public')->put($path.'/'.$name, (string)  $img->encode());
+            // Response with the image or you can as well do whatever you like with it.
+
+             $this->store_image($name, $request->image_type);
+         }
 
         return redirect()->route('images.view');
+    }
+
+    protected function brightness_image($request, $path, $name){
+        $img = Image::make($request->image);
+        // increase brightness of image
+        $img->brightness(35);
+        Storage::disk('public')->put($path.'/'.$name, (string) $img->encode());
     }
 
     protected function backup_image($request, $path, $name){

@@ -16,6 +16,8 @@ class Images extends Model
 
     const BACKUP_IMAGE = 'backup_image';
     const BLUR_IMAGE = 'blur_image';
+    const BRIGHTNESS_IMAGE = 'brightness_image';
+    const CIRCLE_IMAGE = 'circle_image';
 
     //image store path
     const IMAGE_STORE_PATH = 'image/feature_image';

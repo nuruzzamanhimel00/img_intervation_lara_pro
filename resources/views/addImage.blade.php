@@ -30,6 +30,18 @@
                                  {{ str_replace('_',' ',\App\Models\Images::BLUR_IMAGE) }}
                                 </label>
                             </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="image_type" id="exampleRadios1" value="{{ \App\Models\Images::BRIGHTNESS_IMAGE }}" checked>
+                                <label class="form-check-label" for="exampleRadios1">
+                                 {{ str_replace('_',' ',\App\Models\Images::BRIGHTNESS_IMAGE) }}
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="image_type" id="exampleRadios1" value="{{ \App\Models\Images::CIRCLE_IMAGE }}" checked>
+                                <label class="form-check-label" for="exampleRadios1">
+                                 {{ str_replace('_',' ',\App\Models\Images::CIRCLE_IMAGE) }}
+                                </label>
+                            </div>
 
                         </div>
 
