@@ -26,6 +26,10 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/add-image',[ImageController::class,'addImage'])->name('images.add');
 
     Route::post('/store-image',[ImageController::class,'storeImage'])->name('images.store');
+
+    Route::get('/view-image',[ImageController::class,'viewImage'])->name('images.view');
+
+    Route::get('/delete-image/{id}',[ImageController::class,'deleteImage'])->name('delete.image');
 });
 
 
