@@ -74,8 +74,20 @@ class ImageController extends Controller
 
              $this->store_image($name, $request->image_type);
          }
+         else if($request->image_type == Images::CROP_IMAGE){
+            $this->crop_image($request, $path, $name);
+            $this->store_image($name, $request->image_type);
+         }
 
         return redirect()->route('images.view');
+    }
+
+    protected function crop_image($request, $path, $name){
+        // create new Intervention Image
+        $img = Image::make($request->image);
+        // crop image
+        $img->crop(100, 100, 25, 25);
+        Storage::disk('public')->put($path.'/'.$name, (string) $img->encode());
     }
 
     protected function brightness_image($request, $path, $name){
